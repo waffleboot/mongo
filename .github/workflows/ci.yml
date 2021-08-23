@@ -16,7 +16,7 @@ jobs:
     - name: install compile requirements
       run:  python3 -m pip install -r etc/pip/compile-requirements.txt
     - name: make
-      run:  python3 buildscripts/scons.py DESTDIR='${{ github.workspace }}/build' MONGO_VERSION='5.1.0-yangand' install-mongod
+      run:  python3 buildscripts/scons.py DESTDIR='${{ github.workspace }}/build' MONGO_VERSION='5.1.0-yangand' generated-sources
     - name: disk usage
       run:  du -hs '${{ github.workspace }}/build'
     - name: docker
