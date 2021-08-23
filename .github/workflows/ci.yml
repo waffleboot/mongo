@@ -18,7 +18,7 @@ jobs:
     - name: make
       run:  python3 buildscripts/scons.py DESTDIR='${{ github.workspace }}/build' MONGO_VERSION='5.1.0-yangand' install-mongod
       env:
-        SCONSFLAGS: "--wiredtiger=off --ssl=off --js-engine=none --dry-run --noshell --use-system-intel_decimal128"
+        SCONSFLAGS: "--wiredtiger=off --ssl=off --js-engine=none --dry-run --noshell"
     # - name: disk usage
     #   run:  du -hs '${{ github.workspace }}/build'
     # - name: docker
