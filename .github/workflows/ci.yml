@@ -18,7 +18,7 @@ jobs:
     - name: make
       run:  python3 buildscripts/scons.py DESTDIR=/tmp/unpriv PREFIX=/usr/local MONGO_VERSION='5.1.0-yangand' install-mongod
       env:
-        SCONSFLAGS: "--link-model=object --wiredtiger=off --ssl=off --js-engine=none --noshell --opt=off"
+        SCONSFLAGS: "--use-system-boost --use-system-intel_decimal128 --link-model=object --wiredtiger=off --ssl=off --js-engine=none --noshell --opt=off"
     - name: disk usage
       run:  du -hs /tmp/unpriv/usr/local
     - name: docker
