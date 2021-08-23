@@ -17,15 +17,15 @@ jobs:
       run:  python3 -m pip install -r etc/pip/compile-requirements.txt
     - name: make
       run:  python3 buildscripts/scons.py DESTDIR='${{ github.workspace }}/build' MONGO_VERSION='5.1.0-yangand' generated-sources
-    - name: disk usage
-      run:  du -hs '${{ github.workspace }}/build'
-    - name: docker
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: yangand/mongo
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        registry: registry.hub.docker.com
-        dockerfile: ${{ github.workspace }}/.github/workflows/Dockerfile
-        context: ${{ github.workspace }}/build
-        tags: latest
+    # - name: disk usage
+    #   run:  du -hs '${{ github.workspace }}/build'
+    # - name: docker
+    #   uses: elgohr/Publish-Docker-Github-Action@master
+    #   with:
+    #     name: yangand/mongo
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #     registry: registry.hub.docker.com
+    #     dockerfile: ${{ github.workspace }}/.github/workflows/Dockerfile
+    #     context: ${{ github.workspace }}/build
+    #     tags: latest
