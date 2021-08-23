@@ -16,18 +16,18 @@ jobs:
     - name: install compile requirements
       run:  python3 -m pip install -r etc/pip/compile-requirements.txt
     - name: make
-      run:  python3 buildscripts/scons.py DESTDIR='${{ github.workspace }}/build' MONGO_VERSION='5.1.0-yangand' install-mongod
+      run:  python3 buildscripts/scons.py DESTDIR=/tmp/unpriv PREFIX=/usr/local MONGO_VERSION='5.1.0-yangand' install-mongod
       env:
-        SCONSFLAGS: "--wiredtiger=off --ssl=off --js-engine=none --noshell --opt=off --dry-run"
-    # - name: disk usage
-    #   run:  du -hs '${{ github.workspace }}/build'
-    # - name: docker
-    #   uses: elgohr/Publish-Docker-Github-Action@master
-    #   with:
-    #     name: yangand/mongo
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     registry: registry.hub.docker.com
-    #     dockerfile: ${{ github.workspace }}/.github/workflows/Dockerfile
-    #     context: ${{ github.workspace }}/build
-    #     tags: latest
+        SCONSFLAGS: "--link-model=object --wiredtiger=off --ssl=off --js-engine=none --noshell --opt=off"
+    - name: disk usage
+      run:  du -hs /tmp/unpriv/usr/local
+    - name: docker
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: yangand/mongo
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        registry: registry.hub.docker.com
+        dockerfile: ${{ github.workspace }}/.github/workflows/Dockerfile
+        context: /tmp/unpriv/usr/local
+        tags: latest
