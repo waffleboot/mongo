@@ -22,18 +22,18 @@ jobs:
     - name: install compile requirements
       run:  python3 -m pip install -r etc/pip/compile-requirements.txt
     - name: make
-      run:  python3 buildscripts/scons.py DESTDIR=/tmp/unpriv PREFIX=/usr/local MONGO_VERSION='${{ env.MONGO_VERSION }}' install-mongod
+      run:  python3 buildscripts/scons.py DESTDIR=/tmp/unpriv PREFIX=/usr/local MONGO_VERSION='${{ env.MONGO_VERSION }}' build/cached/mongo/transport/libtransport_layer_common.a
       env:
         SCONSFLAGS: "--cache=all --cache-dir=/opt/cache --link-model=object --wiredtiger=off --ssl=off --js-engine=none --noshell --opt=off --disable-warnings-as-errors"
-    - name: disk usage
-      run:  du -hs /tmp/unpriv/usr/local
-    - name: docker
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: yangand/mongo
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        registry: registry.hub.docker.com
-        dockerfile: ${{ github.workspace }}/.github/workflows/Dockerfile
-        context: /tmp/unpriv/usr/local
-        tags: latest
+    # - name: disk usage
+    #   run:  du -hs /tmp/unpriv/usr/local
+    # - name: docker
+    #   uses: elgohr/Publish-Docker-Github-Action@master
+    #   with:
+    #     name: yangand/mongo
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #     registry: registry.hub.docker.com
+    #     dockerfile: ${{ github.workspace }}/.github/workflows/Dockerfile
+    #     context: /tmp/unpriv/usr/local
+    #     tags: latest
